@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tile Text — Design Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --black: #1d1d1f;
+      --gray-900: #2d2d2f;
+      --gray-600: #6e6e73;
+      --gray-400: #a1a1a6;
+      --gray-200: #e8e8ed;
+      --gray-100: #f5f5f7;
+      --white: #ffffff;
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+      --success: #30d158;
+      --radius: 12px;
+      --radius-lg: 20px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--black);
+      background: var(--white);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-height: 1.5;
+    }
+
+    /* ========== NAVIGATION ========== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray-600);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--black);
+    }
+
+    /* ========== HERO SECTION ========== */
+    .hero {
+      padding: 160px 24px 100px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--gray-100) 0%, var(--white) 100%);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray-600);
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 700;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      color: var(--black);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .gradient {
+      background: linear-gradient(135deg, var(--accent) 0%, #6e40c9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(17px, 2.5vw, 21px);
+      color: var(--gray-600);
+      max-width: 580px;
+      margin: 0 auto 48px;
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: var(--accent);
+      color: var(--white);
+      font-size: 17px;
+      font-weight: 600;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .hero-cta:hover {
+      background: var(--accent-hover);
+      transform: scale(1.02);
+    }
+
+    .hero-cta svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* ========== HOW IT WORKS ========== */
+    .how-it-works {
+      padding: 100px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      text-align: center;
+      margin-bottom: 64px;
+      color: var(--black);
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .step-number {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 auto 24px;
+    }
+
+    .step h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      letter-spacing: -0.3px;
+    }
+
+    .step p {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* ========== SIGNUP SECTION ========== */
+    .signup-section {
+      padding: 100px 24px;
+      background: var(--gray-100);
+    }
+
+    .signup-container {
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .signup-container .section-label,
+    .signup-container .section-title {
+      text-align: center;
+    }
+
+    .signup-container .section-title {
+      margin-bottom: 48px;
+    }
+
+    .form-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 48px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 8px 40px rgba(0,0,0,0.04);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+      letter-spacing: 0.01em;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 16px;
+      font-family: inherit;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius);
+      background: var(--white);
+      color: var(--black);
+      transition: all 0.2s;
+      outline: none;
+    }
+
+    .form-group input::placeholder {
+      color: var(--gray-400);
+    }
+
+    .form-group input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+    }
+
+    .form-group .hint {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-top: 4px;
+    }
+
+    .address-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 100px;
+      gap: 16px;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 17px;
+      font-weight: 600;
+      font-family: inherit;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+
+    .submit-btn:hover {
+      background: var(--gray-900);
+      transform: translateY(-1px);
+    }
+
+    .form-footer {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    /* ========== SAMPLE TILE PREVIEW (Mockup of SMS) ========== */
+    .preview-section {
+      padding: 100px 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .phone-mockup {
+      width: 300px;
+      margin: 0 auto;
+      background: var(--gray-100);
+      border-radius: 36px;
+      padding: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+    }
+
+    .phone-screen {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 24px 16px;
+      min-height: 500px;
+    }
+
+    .sms-bubble {
+      background: var(--gray-100);
+      border-radius: 18px 18px 18px 4px;
+      padding: 12px;
+      margin-top: 16px;
+      max-width: 240px;
+    }
+
+    .sms-bubble img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #d4a574 0%, #c4956a 50%, #a0785a 100%);
+      margin-bottom: 8px;
+    }
+
+    .sms-bubble p {
+      font-size: 14px;
+      color: var(--black);
+      line-height: 1.5;
+    }
+
+    .sms-bubble .sample-link {
+      display: inline-block;
+      color: var(--accent);
+      font-size: 14px;
+      margin-top: 8px;
+      text-decoration: underline;
+    }
+
+    .sms-sender {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--gray-600);
+      margin-bottom: 4px;
+    }
+
+    .sms-time {
+      font-size: 11px;
+      color: var(--gray-400);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .preview-content h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 20px;
+      line-height: 1.15;
+    }
+
+    .preview-content p {
+      font-size: 17px;
+      color: var(--gray-600);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-top: 32px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      color: var(--gray-600);
+      margin-bottom: 16px;
+    }
+
+    .feature-list li .check {
+      width: 24px;
+      height: 24px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--success);
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ========== SAMPLE REQUEST PAGE (Page 2 Mockup) ========== */
+    .page-divider {
+      padding: 60px 24px;
+      background: var(--black);
+      text-align: center;
+    }
+
+    .page-divider h2 {
+      color: var(--white);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0.6;
+    }
+
+    .sample-page {
+      padding: 100px 24px;
+      background: var(--white);
+    }
+
+    .sample-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .sample-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .tile-preview {
+      position: sticky;
+      top: 80px;
+    }
+
+    .tile-image {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #d4a574 0%, #c4956a 40%, #a0785a 100%);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .tile-image-pattern {
+      width: 100%;
+      height: 100%;
+      background:
+        repeating-conic-gradient(var(--gray-200) 0% 25%, transparent 0% 50%)
+        0 0 / 40px 40px;
+      opacity: 0.3;
+    }
+
+    .tile-name {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .tile-desc {
+      font-size: 15px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .sample-form-section h2 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .sample-form-section .subtitle {
+      font-size: 15px;
+      color: var(--gray-600);
+      margin-bottom: 32px;
+    }
+
+    .sample-submit-btn {
+      width: 100%;
+      padding: 16px;
+      font-size: 17px;
+      font-weight: 600;
+      font-family: inherit;
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 8px;
+    }
+
+    .sample-submit-btn:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* ========== THANK YOU PAGE MOCKUP ========== */
+    .thankyou-page {
+      padding: 100px 24px;
+      background: var(--gray-100);
+      text-align: center;
+    }
+
+    .thankyou-icon {
+      width: 80px;
+      height: 80px;
+      background: #e8f5e9;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 32px;
+      font-size: 36px;
+    }
+
+    .thankyou-page h2 {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .thankyou-page p {
+      font-size: 17px;
+      color: var(--gray-600);
+      max-width: 480px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ========== FOOTER ========== */
+    footer {
+      padding: 48px 24px;
+      border-top: 1px solid var(--gray-200);
+      text-align: center;
+    }
+
+    footer p {
+      font-size: 13px;
+      color: var(--gray-400);
+    }
+
+    footer a {
+      color: var(--gray-600);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--black);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .preview-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .preview-grid .preview-content {
+        order: -1;
+      }
+
+      .form-row,
+      .address-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-card {
+        padding: 32px 24px;
+      }
+
+      .sample-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .tile-preview {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav>
+    <div class="nav-inner">
+      <a href="#" class="logo">tile<span>text</span></a>
+      <ul class="nav-links">
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#signup">Sign Up</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero">
+    <div class="hero-badge">Free tile inspiration, delivered to your phone</div>
+    <h1>Discover beautiful tiles.<br><span class="gradient">Every week.</span></h1>
+    <p>Get curated tile picks sent straight to your phone every Monday, Wednesday, and Friday. Love one? Request a free sample with one tap.</p>
+    <a href="#signup" class="hero-cta">
+      Get Started
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" /></svg>
+    </a>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="section-label">How It Works</div>
+    <h2 class="section-title">Three simple steps.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <h3>Sign Up</h3>
+        <p>Enter your info below to join our text list. It takes 30 seconds.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <h3>Get Inspired</h3>
+        <p>Receive a stunning tile pick via text three times a week, complete with a photo and description.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <h3>Request a Sample</h3>
+        <p>Love a tile? Tap the link in your text to request a free sample shipped to your door.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SMS PREVIEW ========== -->
+  <section class="preview-section">
+    <div class="preview-grid">
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="sms-time">Today 11:00 AM</div>
+          <div class="sms-sender">Tile Text</div>
+          <div class="sms-bubble">
+            <div style="width:100%;height:160px;border-radius:12px;background:linear-gradient(135deg, #d4a574 0%, #c4956a 50%, #a0785a 100%);margin-bottom:8px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:48px;opacity:0.5;">&#9638;</span>
+            </div>
+            <p><strong>Sahara Matte Porcelain</strong><br>A warm, earthy porcelain tile with a smooth matte finish. Perfect for kitchens and bathrooms.</p>
+            <a href="#" class="sample-link">Want a free sample? Tap here</a>
+          </div>
+        </div>
+      </div>
+      <div class="preview-content">
+        <h2>Beautiful tiles,<br>right in your texts.</h2>
+        <p>Every Monday, Wednesday, and Friday at 11 AM, you'll receive a hand-picked tile recommendation with a gorgeous photo and quick description.</p>
+        <p>No spam. No sales pitches. Just beautiful tiles you'll actually want in your home.</p>
+        <ul class="feature-list">
+          <li><span class="check">&#10003;</span> Curated tile picks 3x per week</li>
+          <li><span class="check">&#10003;</span> High-quality tile photos</li>
+          <li><span class="check">&#10003;</span> One-tap free sample requests</li>
+          <li><span class="check">&#10003;</span> Unsubscribe anytime</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SIGNUP FORM ========== -->
+  <section class="signup-section" id="signup">
+    <div class="signup-container">
+      <div class="section-label">Join the List</div>
+      <h2 class="section-title">Start getting tile picks.</h2>
+      <div class="form-card">
+        <form>
+          <div class="form-row">
+            <div class="form-group">
+              <label>First Name</label>
+              <input type="text" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label>Last Name</label>
+              <input type="text" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Cell Phone Number</label>
+            <input type="tel" placeholder="(555) 123-4567" required>
+            <div class="hint">We'll send tile picks to this number via text message.</div>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="john@example.com" required>
+          </div>
+          <div class="form-group">
+            <label>Street Address</label>
+            <input type="text" placeholder="123 Main St" required>
+          </div>
+          <div class="address-grid">
+            <div class="form-group">
+              <label>City</label>
+              <input type="text" placeholder="Dallas" required>
+            </div>
+            <div class="form-group">
+              <label>State</label>
+              <input type="text" placeholder="TX" required>
+            </div>
+            <div class="form-group">
+              <label>ZIP</label>
+              <input type="text" placeholder="75201" required>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn">Sign Me Up</button>
+          <div class="form-footer">By signing up, you agree to receive text messages. Msg & data rates may apply.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PAGE 2: SAMPLE REQUEST ========== -->
+  <div class="page-divider">
+    <h2>Page 2 Preview — Free Sample Request</h2>
+  </div>
+
+  <section class="sample-page">
+    <div class="sample-container">
+      <div class="sample-grid">
+        <div class="tile-preview">
+          <div class="tile-image">
+            <div class="tile-image-pattern"></div>
+          </div>
+          <div class="tile-name">Sahara Matte Porcelain</div>
+          <div class="tile-desc">A warm, earthy porcelain tile with a smooth matte finish. Perfect for kitchens and bathrooms. Available in 12"x24" and 24"x24" formats.</div>
+        </div>
+        <div class="sample-form-section">
+          <h2>Request Your Free Sample</h2>
+          <p class="subtitle">Confirm your shipping details and we'll send this tile sample to your door — completely free.</p>
+          <form>
+            <div class="form-row">
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" value="John" required>
+              </div>
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" value="Smith" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="tel" value="(555) 123-4567" readonly style="background: var(--gray-100); color: var(--gray-600);">
+            </div>
+            <div class="form-group">
+              <label>Street Address</label>
+              <input type="text" value="123 Main St" required>
+            </div>
+            <div class="address-grid">
+              <div class="form-group">
+                <label>City</label>
+                <input type="text" value="Dallas" required>
+              </div>
+              <div class="form-group">
+                <label>State</label>
+                <input type="text" value="TX" required>
+              </div>
+              <div class="form-group">
+                <label>ZIP</label>
+                <input type="text" value="75201" required>
+              </div>
+            </div>
+            <button type="submit" class="sample-submit-btn">Confirm & Send My Free Sample</button>
+            <div class="form-footer">Your sample will typically arrive within 5-7 business days.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== THANK YOU PAGE MOCKUP ========== -->
+  <div class="page-divider">
+    <h2>Page 3 Preview — Confirmation Pages</h2>
+  </div>
+
+  <section class="thankyou-page">
+    <div class="thankyou-icon">&#10003;</div>
+    <h2>You're all set!</h2>
+    <p>Welcome to Tile Text. You'll receive your first tile pick on the next scheduled day — Monday, Wednesday, or Friday at 11 AM.</p>
+  </section>
+
+  <section class="thankyou-page" style="background: var(--white);">
+    <div class="thankyou-icon" style="background: #e3f2fd;">&#x1F4E6;</div>
+    <h2>Sample on its way!</h2>
+    <p>We've received your request for the <strong>Sahara Matte Porcelain</strong> tile. It'll be shipped to your address within 5-7 business days.</p>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <p>&copy; 2026 Tile Text. All rights reserved. &nbsp;|&nbsp; <a href="#">Privacy Policy</a> &nbsp;|&nbsp; <a href="#">Unsubscribe</a></p>
+  </footer>
+
+</body>
+</html>
